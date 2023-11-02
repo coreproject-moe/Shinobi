@@ -6,5 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-regex = "1.10.2"
+html-escape = "0.2.13"
+regex = {version = "1.10.2", features = ['std','perf']}
 reqwest = "0.11.22"
