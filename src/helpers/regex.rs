@@ -19,6 +19,22 @@ pub fn get_id_from_url(url: &str) -> Result<i64, String> {
     return Err("No capture found".to_string());
 }
 
+
+
+pub fn get_content_between_first_brackets(text: &str) -> Result<i64, String> {
+    let pattern = Regex::new(r"\((.*?)\)").unwrap();
+    if let Some(captures) = pattern.captures(text) {
+        if let Some(text) = captures.get(1) {
+            return Ok(inner_text.as_str().to_string())
+        }else{
+            return Err("No ID found".to_string());
+
+        }
+    }
+    
+    return Err("No capture found".to_string());
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -43,20 +59,10 @@ mod tests {
         assert_eq!(id.unwrap_err(), "No capture found");
     }
 
+    #[test]
+    fn test_capture_between_first_brackets(){
+        let text = get_content_between_first_brackets("Sora Amamiya ( 雨宮 天 )")
+        assert_eq!(text.unwrap()," 雨宮 天 ")
+    }
+
 }
-
-
-
-// pub fn get_content_between_first_brackets(text: &str) -> Result<i64, String> {
-//     let pattern = Regex::new(r"\((.*?)\)").unwrap();
-//     if let Some(captures) = pattern.captures(url) {
-//         if let Some(text) = captures.get(1) {
-//             return Ok(Some(text))
-//         }else{
-//             return Err(String::from("No ID found"));
-
-//         }
-//     }
-    
-//     return Err(String::from("No capture found"));
-// }
