@@ -78,7 +78,7 @@ mod tests {
 
 
     #[test]
-    fn test_check_if_string_contains_integer(){
+    fn test_check_if_string_contains_integer() {
         let text = RegexHelper::check_if_string_contains_integer("hello 123");
         assert!(text.unwrap());
 
@@ -88,7 +88,7 @@ mod tests {
     }
 
     #[test]
-    fn test_check_if_string_contains_bracket(){
+    fn test_check_if_string_contains_bracket() {
         let text = RegexHelper::check_if_string_contains_bracket("Sora [123]");
         assert!(text.unwrap());
     }
