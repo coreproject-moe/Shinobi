@@ -25,7 +25,7 @@ pub fn get_content_between_first_brackets(text: &str) -> Result<String, String> 
     let pattern = Regex::new(r"\((.*?)\)").unwrap();
     if let Some(captures) = pattern.captures(text) {
         if let Some(inner_text) = captures.get(1) {
-            return Ok(inner_text.as_str().to_string().trim())
+            return Ok(inner_text.as_str().trim().to_string())
         }else{
             return Err("No Text found".to_string());
 
@@ -62,8 +62,8 @@ mod tests {
     #[test]
     fn test_capture_between_first_brackets(){
         let text = get_content_between_first_brackets("Sora Amamiya ( 雨宮 天 )");
-        assert_nq!(text.unwrap()," 雨宮 天 ");
-        assert_eq!(text.unwrap(),"雨宮 天");
+        assert_nq!(text.unwrap(), " 雨宮 天 ");
+        assert_eq!(text.unwrap(), "雨宮 天");
 
     }
 
