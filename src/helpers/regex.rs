@@ -31,12 +31,12 @@ pub fn get_content_between_first_brackets(text: &str) -> Result<String, String> 
     Err("No capture found".to_string())
 }
 
-pub fn check_if_string_contains_integer(string:&str) -> Result<bool,String> {
+pub fn check_if_string_contains_integer(string:&str) -> Result<bool, ()> {
     let pattern = Regex::new(r"\d+").unwrap();
     Ok(pattern.is_match(string))
 }
 
-pub fn check_if_string_contains_bracket(string:&str) -> Result<bool,String>{
+pub fn check_if_string_contains_bracket(string:&str) -> Result<bool, ()> {
     let    pattern = Regex::new(r"\[\d+\]").unwrap();
     Ok(pattern.is_match(string))
 }
