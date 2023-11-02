@@ -31,6 +31,17 @@ pub fn get_content_between_first_brackets(text: &str) -> Result<String, String> 
     Err("No capture found".to_string())
 }
 
+pub fn check_if_string_contains_integer(string:&str) -> Result<bool,String> {
+    let pattern = Regex::new(r"\d+").unwrap();
+    return Ok(pattern.is_match(string));
+}
+
+pub fn check_if_string_contains_bracket(string:&str) -> Result<bool,String>{
+    let    pattern = Regex::new(r"\[\d+\]").unwrap();
+    return Ok(pattern.is_match(string));
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -39,19 +50,14 @@ mod tests {
     fn test_get_id_from_url_perfect_regex() {
         let id = get_id_from_url("https://myanimelist.net/anime/12189/");
         assert_eq!(id.to_owned().unwrap(), 12189);
-    }
 
-    #[test]
-    fn test_get_id_from_url_bad_regex() {
-        let id = get_id_from_url("https://myanimelist.net/anime/38101/5-toubun_no_Hanayome");
-        assert_eq!(id.to_owned().unwrap(), 38101);
-    }
+        let bad_id = get_id_from_url("https://myanimelist.net/anime/38101/5-toubun_no_Hanayome");
+        assert_eq!(bad_id.to_owned().unwrap(), 38101);
 
-    #[test]
-    fn test_get_id_from_url_no_match() {
-        let id = get_id_from_url("https://myanimelist.net/anime");
-        assert!(id.is_err());
-        assert_eq!(id.to_owned().unwrap_err(), "No capture found");
+        let no_match_id = get_id_from_url("https://myanimelist.net/anime");
+        assert!(no_match_id.is_err());
+        assert_eq!(no_match_id.to_owned().unwrap_err(), "No capture found");
+
     }
 
     #[test]
@@ -59,13 +65,27 @@ mod tests {
         let text = get_content_between_first_brackets("Sora Amamiya ( 雨宮 天 )");
         assert_ne!(text.to_owned().unwrap(), " 雨宮 天 ");
         assert_eq!(text.to_owned().unwrap(), "雨宮 天");
+
+        let bad_text = get_content_between_first_brackets("Sora Amamiya");
+
+        assert!(bad_text.to_owned().is_err());
+        assert_eq!(bad_text.to_owned().unwrap_err(), "No capture found");
     }
+
 
     #[test]
-    fn test_capture_between_first_brackets_no_match() {
-        let text = get_content_between_first_brackets("Sora Amamiya");
+    fn test_check_if_string_contains_integer(){
+        let text = check_if_string_contains_integer("hello 123");
+        assert_eq!(text.unwrap(), true);
 
-        assert!(text.to_owned().is_err());
-        assert_eq!(text.to_owned().unwrap_err(), "No capture found");
+        let bad_text = check_if_string_contains_integer("hello");
+        assert_eq!(bad_text.unwrap(), false);
+
     }
+
+    // #[test]
+    // fn test_check_if_string_contains_bracket(){
+    //     let text = check_if_string_contains_bracket("Sora ( Amamiya )");
+    //     assert_eq!(text.to_owned().unwrap(), true);
+    // }
 }
