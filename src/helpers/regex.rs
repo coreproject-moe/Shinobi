@@ -7,7 +7,12 @@ pub fn get_id_from_url(url: &str) -> Result<i64, String> {
         if let Some(id) = captures.get(1) {
             if let Ok(id_val) = id.as_str().parse::<i64>() {
                 return Ok(id_val);
+            }else{
+                return Err("ID is not an integer");
             }
+        }else{
+            return Err(String::from("No ID found"));
+
         }
     }
     
