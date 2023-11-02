@@ -16,7 +16,7 @@ pub fn get_id_from_url(url: &str) -> Result<i64, String> {
         }
     }
     
-    return Err("No capture found".to_string());
+    Err("No capture found".to_string())
 }
 
 
@@ -31,7 +31,7 @@ pub fn get_content_between_first_brackets(text: &str) -> Result<String, String> 
         }
     }
     
-    return Err("No capture found".to_string());
+    Err("No capture found".to_string())
 }
 
 #[cfg(test)]
