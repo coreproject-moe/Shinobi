@@ -8,15 +8,15 @@ pub fn get_id_from_url(url: &str) -> Result<i64, String> {
             if let Ok(id_val) = id.as_str().parse::<i64>() {
                 return Ok(id_val);
             }else{
-                return Err("ID is not an integer".as_str());
+                return Err("ID is not an integer".to_string());
             }
         }else{
-            return Err("No ID found".as_str());
+            return Err("No ID found".to_string());
 
         }
     }
     
-    return Err("No capture found".as_str());
+    return Err("No capture found".to_string());
 }
 
 #[cfg(test)]
