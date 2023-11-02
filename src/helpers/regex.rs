@@ -47,16 +47,16 @@ mod tests {
 
 
 
-pub fn get_content_between_first_brackets(text: &str) -> Result<i64, String> {
-    let pattern = Regex::new(r"\((.*?)\)").unwrap();
-    if let Some(captures) = pattern.captures(url) {
-        if let Some(text) = captures.get(1) {
-            return Ok(Some(text))
-        }else{
-            return Err(String::from("No ID found"));
+// pub fn get_content_between_first_brackets(text: &str) -> Result<i64, String> {
+//     let pattern = Regex::new(r"\((.*?)\)").unwrap();
+//     if let Some(captures) = pattern.captures(url) {
+//         if let Some(text) = captures.get(1) {
+//             return Ok(Some(text))
+//         }else{
+//             return Err(String::from("No ID found"));
 
-        }
-    }
+//         }
+//     }
     
-    return Err(String::from("No capture found"));
-}
+//     return Err(String::from("No capture found"));
+// }
