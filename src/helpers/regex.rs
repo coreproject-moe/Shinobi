@@ -2,7 +2,7 @@ extern crate regex;
 use regex::Regex;
 
 pub struct RegexHelper;
-impl  RegexHelper {
+impl RegexHelper {
     pub fn get_id_from_url(url: &str) -> Result<i64, String> {
         let pattern = Regex::new(r"/(\d+)/").unwrap();
         if let Some(captures) = pattern.captures(url) {
@@ -16,10 +16,10 @@ impl  RegexHelper {
                 return Err("No ID found".to_string());
             }
         }
-    
+
         Err("No capture found".to_string())
     }
-    
+
     pub fn get_content_between_first_brackets(text: &str) -> Result<String, String> {
         let pattern = Regex::new(r"\((.*?)\)").unwrap();
         if let Some(captures) = pattern.captures(text) {
@@ -29,22 +29,20 @@ impl  RegexHelper {
                 return Err("No Text found".to_string());
             }
         }
-    
+
         Err("No capture found".to_string())
     }
-    
-    pub fn check_if_string_contains_integer(string:&str) -> Result<bool, ()> {
+
+    pub fn check_if_string_contains_integer(string: &str) -> Result<bool, ()> {
         let pattern = Regex::new(r"\d+").unwrap();
         Ok(pattern.is_match(string))
     }
-    
-    pub fn check_if_string_contains_bracket(string:&str) -> Result<bool, ()> {
-        let    pattern = Regex::new(r"\[\d+\]").unwrap();
+
+    pub fn check_if_string_contains_bracket(string: &str) -> Result<bool, ()> {
+        let pattern = Regex::new(r"\[\d+\]").unwrap();
         Ok(pattern.is_match(string))
     }
-    
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -55,13 +53,14 @@ mod tests {
         let id = RegexHelper::get_id_from_url("https://myanimelist.net/anime/12189/");
         assert_eq!(id.to_owned().unwrap(), 12189);
 
-        let bad_id =RegexHelper:: get_id_from_url("https://myanimelist.net/anime/38101/5-toubun_no_Hanayome");
+        let bad_id = RegexHelper::get_id_from_url(
+            "https://myanimelist.net/anime/38101/5-toubun_no_Hanayome",
+        );
         assert_eq!(bad_id.to_owned().unwrap(), 38101);
 
         let no_match_id = RegexHelper::get_id_from_url("https://myanimelist.net/anime");
         assert!(no_match_id.is_err());
         assert_eq!(no_match_id.to_owned().unwrap_err(), "No capture found");
-
     }
 
     #[test]
@@ -76,7 +75,6 @@ mod tests {
         assert_eq!(bad_text.to_owned().unwrap_err(), "No capture found");
     }
 
-
     #[test]
     fn test_check_if_string_contains_integer() {
         let text = RegexHelper::check_if_string_contains_integer("hello 123");
@@ -84,7 +82,6 @@ mod tests {
 
         let bad_text = RegexHelper::check_if_string_contains_integer("hello");
         assert!(!bad_text.unwrap());
-
     }
 
     #[test]
