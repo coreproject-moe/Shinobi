@@ -21,7 +21,7 @@ pub fn get_id_from_url(url: &str) -> Result<i64, String> {
 
 
 
-pub fn get_content_between_first_brackets(text: &str) -> Result<i64, String> {
+pub fn get_content_between_first_brackets(text: &str) -> Result<String, String> {
     let pattern = Regex::new(r"\((.*?)\)").unwrap();
     if let Some(captures) = pattern.captures(text) {
         if let Some(inner_text) = captures.get(1) {
