@@ -1,5 +1,6 @@
 use regex::Regex;
 
+
 pub fn get_id_from_url(url: &str) -> Result<i64, String> {
     let pattern = Regex::new(r"/(\d+)/").unwrap();
     if let Some(captures) = pattern.captures(url) {
@@ -9,6 +10,7 @@ pub fn get_id_from_url(url: &str) -> Result<i64, String> {
             }
         }
     }
+    
     return Err(String::from("No capture found"));
 }
 
