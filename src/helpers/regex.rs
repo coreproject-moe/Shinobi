@@ -61,8 +61,8 @@ mod tests {
 
     #[test]
     fn test_capture_between_first_brackets(){
-        let text = get_content_between_first_brackets("Sora Amamiya ( 雨宮 天 )")
-        assert_eq!(text.unwrap()," 雨宮 天 ")
+        let text = get_content_between_first_brackets("Sora Amamiya ( 雨宮 天 )");
+        assert_eq!(text.unwrap()," 雨宮 天 ");
     }
 
 }
