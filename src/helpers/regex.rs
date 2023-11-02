@@ -7,30 +7,27 @@ pub fn get_id_from_url(url: &str) -> Result<i64, String> {
         if let Some(id) = captures.get(1) {
             if let Ok(id_val) = id.as_str().parse::<i64>() {
                 return Ok(id_val);
-            }else{
+            } else {
                 return Err("ID is not an integer".to_string());
             }
-        }else{
+        } else {
             return Err("No ID found".to_string());
-
         }
     }
-    
+
     Err("No capture found".to_string())
 }
-
-
 
 pub fn get_content_between_first_brackets(text: &str) -> Result<String, String> {
     let pattern = Regex::new(r"\((.*?)\)").unwrap();
     if let Some(captures) = pattern.captures(text) {
         if let Some(inner_text) = captures.get(1) {
-            return Ok(inner_text.as_str().trim().to_string())
-        }else{
+            return Ok(inner_text.as_str().trim().to_string());
+        } else {
             return Err("No Text found".to_string());
         }
     }
-    
+
     Err("No capture found".to_string())
 }
 
@@ -43,36 +40,32 @@ mod tests {
         let id = get_id_from_url("https://myanimelist.net/anime/12189/");
         assert_eq!(id.to_owned().unwrap(), 12189);
     }
-    
+
     #[test]
-    fn test_get_id_from_url_bad_regex(){
+    fn test_get_id_from_url_bad_regex() {
         let id = get_id_from_url("https://myanimelist.net/anime/38101/5-toubun_no_Hanayome");
-        assert_eq!(id.to_owned().
-            unwrap(), 38101);
+        assert_eq!(id.to_owned().unwrap(), 38101);
     }
 
     #[test]
-    fn test_get_id_from_url_no_match(){
-        let id  = get_id_from_url("https://myanimelist.net/anime");
+    fn test_get_id_from_url_no_match() {
+        let id = get_id_from_url("https://myanimelist.net/anime");
         assert!(id.is_err());
         assert_eq!(id.to_owned().unwrap_err(), "No capture found");
     }
 
     #[test]
-    fn test_capture_between_first_brackets(){
+    fn test_capture_between_first_brackets() {
         let text = get_content_between_first_brackets("Sora Amamiya ( 雨宮 天 )");
         assert_ne!(text.to_owned().unwrap(), " 雨宮 天 ");
         assert_eq!(text.to_owned().unwrap(), "雨宮 天");
-
     }
 
     #[test]
-    fn test_capture_between_first_brackets_no_match(){
+    fn test_capture_between_first_brackets_no_match() {
         let text = get_content_between_first_brackets("Sora Amamiya");
 
         assert!(text.to_owned().is_err());
         assert_eq!(text.to_owned().unwrap_err(), "No capture found");
     }
-
-
 }
