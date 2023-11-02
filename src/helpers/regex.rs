@@ -33,12 +33,12 @@ pub fn get_content_between_first_brackets(text: &str) -> Result<String, String> 
 
 pub fn check_if_string_contains_integer(string:&str) -> Result<bool,String> {
     let pattern = Regex::new(r"\d+").unwrap();
-    return Ok(pattern.is_match(string));
+    Ok(pattern.is_match(string))
 }
 
 pub fn check_if_string_contains_bracket(string:&str) -> Result<bool,String>{
     let    pattern = Regex::new(r"\[\d+\]").unwrap();
-    return Ok(pattern.is_match(string));
+    Ok(pattern.is_match(string))
 }
 
 
@@ -76,16 +76,16 @@ mod tests {
     #[test]
     fn test_check_if_string_contains_integer(){
         let text = check_if_string_contains_integer("hello 123");
-        assert_eq!(text.unwrap(), true);
+        assert!(text.unwrap());
 
         let bad_text = check_if_string_contains_integer("hello");
-        assert_eq!(bad_text.unwrap(), false);
+        assert!(!bad_text.unwrap());
 
     }
 
-    // #[test]
-    // fn test_check_if_string_contains_bracket(){
-    //     let text = check_if_string_contains_bracket("Sora ( Amamiya )");
-    //     assert_eq!(text.to_owned().unwrap(), true);
-    // }
+    #[test]
+    fn test_check_if_string_contains_bracket(){
+        let text = check_if_string_contains_bracket("Sora [123]");
+        assert!(text.unwrap());
+    }
 }
