@@ -8,15 +8,15 @@ pub fn get_id_from_url(url: &str) -> Result<i64, String> {
             if let Ok(id_val) = id.as_str().parse::<i64>() {
                 return Ok(id_val);
             }else{
-                return Err("ID is not an integer");
+                return Err("ID is not an integer".as_str());
             }
         }else{
-            return Err(String::from("No ID found"));
+            return Err("No ID found".as_str());
 
         }
     }
     
-    return Err(String::from("No capture found"));
+    return Err("No capture found".as_str());
 }
 
 #[cfg(test)]
@@ -43,4 +43,20 @@ mod tests {
         assert_eq!(id.unwrap_err(), "No capture found");
     }
 
+}
+
+
+
+pub fn get_content_between_first_brackets(text: &str) -> Result<i64, String> {
+    let pattern = Regex::new(r"\((.*?)\)").unwrap();
+    if let Some(captures) = pattern.captures(url) {
+        if let Some(text) = captures.get(1) {
+            return Ok(Some(text))
+        }else{
+            return Err(String::from("No ID found"));
+
+        }
+    }
+    
+    return Err(String::from("No capture found"));
 }
