@@ -67,9 +67,13 @@ mod tests {
 
     }
 
-    // #[test]
-    // fn test_capture_between_first_brackets(){
-    //     let text = get_content_between_first_brackets("Sora Amamiya ( 雨宮 天 )");
-    // }
+    #[test]
+    fn test_capture_between_first_brackets_no_match(){
+        let text = get_content_between_first_brackets("Sora Amamiya");
+
+        assert!(text.is_err());
+        assert_eq(text.unwrap_err(), "No capture found");
+    }
+
 
 }
