@@ -69,7 +69,7 @@ mod tests {
         let text = get_content_between_first_brackets("Sora Amamiya");
 
         assert!(text.is_err());
-        assert_eq(text.unwrap_err(), "No capture found");
+        assert_eq!(text.unwrap_err(), "No capture found");
     }
 
 
