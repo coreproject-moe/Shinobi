@@ -25,7 +25,7 @@ pub fn get_content_between_first_brackets(text: &str) -> Result<String, String> 
     let pattern = Regex::new(r"\((.*?)\)").unwrap();
     if let Some(captures) = pattern.captures(text) {
         if let Some(inner_text) = captures.get(1) {
-            return Ok(inner_text.as_str().to_string())
+            return Ok(inner_text.as_str().to_string().trim())
         }else{
             return Err("No Text found".to_string());
 
@@ -40,20 +40,20 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_perfect_regex() {
+    fn test_get_id_from_url_perfect_regex() {
         let id = get_id_from_url("https://myanimelist.net/anime/12189/");
         assert_eq!(id.unwrap(), 12189);
     }
     
     #[test]
-    fn test_bad_regex(){
+    fn test_get_id_from_url_bad_regex(){
         let id = get_id_from_url("https://myanimelist.net/anime/38101/5-toubun_no_Hanayome");
         assert_eq!(id.
             unwrap(), 38101);
     }
 
     #[test]
-    fn test_no_match(){
+    fn test_get_id_from_url_no_match(){
         let id  = get_id_from_url("https://myanimelist.net/anime");
         assert!(id.is_err());
         assert_eq!(id.unwrap_err(), "No capture found");
@@ -62,7 +62,14 @@ mod tests {
     #[test]
     fn test_capture_between_first_brackets(){
         let text = get_content_between_first_brackets("Sora Amamiya ( 雨宮 天 )");
-        assert_eq!(text.unwrap()," 雨宮 天 ");
+        assert_nq!(text.unwrap()," 雨宮 天 ");
+        assert_eq!(text.unwrap(),"雨宮 天");
+
     }
+
+    // #[test]
+    // fn test_capture_between_first_brackets(){
+    //     let text = get_content_between_first_brackets("Sora Amamiya ( 雨宮 天 )");
+    // }
 
 }
