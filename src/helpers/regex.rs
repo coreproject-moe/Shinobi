@@ -1,5 +1,5 @@
+extern crate regex;
 use regex::Regex;
-
 
 pub fn get_id_from_url(url: &str) -> Result<i64, String> {
     let pattern = Regex::new(r"/(\d+)/").unwrap();
