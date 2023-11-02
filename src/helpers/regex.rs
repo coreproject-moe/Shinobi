@@ -27,7 +27,7 @@ pub fn get_content_between_first_brackets(text: &str) -> Result<i64, String> {
         if let Some(text) = captures.get(1) {
             return Ok(inner_text.as_str().to_string())
         }else{
-            return Err("No ID found".to_string());
+            return Err("No Text found".to_string());
 
         }
     }
