@@ -1,4 +1,4 @@
-name: CI
+name: Lint Codes
 
 # This workflow run tests and build for each push
 
@@ -9,7 +9,7 @@ on:
             - main
 
 jobs:
-    test_phaser:
+    lint:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
