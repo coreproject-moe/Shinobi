@@ -26,13 +26,10 @@ pub fn get_content_between_first_brackets(text: &str) -> Result<String, String> 
     if let Some(captures) = pattern.captures(text) {
         if let Some(inner_text) = captures.get(1) {
             return Ok(inner_text.as_str().trim().to_string())
-        }else{
-            return Err("No Text found".to_string());
-
         }
     }
     
-    return Err("No capture found".to_string());
+    return Err("No Text found".to_string());
 }
 
 #[cfg(test)]
