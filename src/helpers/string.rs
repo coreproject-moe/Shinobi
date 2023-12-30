@@ -37,9 +37,9 @@ impl StringHelper {
     }
     pub fn add_my_animelist_if_not_there(text: &str) -> Result<String, Box<dyn Error>> {
         if !text.contains("myanimelist.net") {
-            Ok("https://myanimelist.net".to_owned() + text);
+            Ok("https://myanimelist.net".to_owned() + text)
         } else {
-            Ok(text.to_owned());
+            Ok(text.to_owned())
         }
     }
 }
@@ -64,6 +64,14 @@ mod tests {
         assert_eq!(
             StringHelper::cleanse("This is <b>bold</b> and <i>italic</i> text.").unwrap(),
             "This is bold and italic text."
+        )
+    }
+
+    #[test]
+    pub fn test_add_my_animelist_if_not_there() {
+        assert_eq!(
+            StringHelper::add_my_animelist_if_not_there("/mal/1").unwrap(),
+            "https://myanimelist.net/mal/1"
         )
     }
 }
