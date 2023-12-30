@@ -42,6 +42,12 @@ impl RegexHelper {
         let pattern = Regex::new(r"\[\d+\]").unwrap();
         Ok(pattern.is_match(string))
     }
+
+    pub fn replace_br_with_newline(string: &str) -> Result<String, regex::Error> {
+        let re = Regex::new(r"<br\s*\/?>").unwrap();
+
+        Ok(re.replace_all(string, "\n").to_string())
+    }
 }
 
 #[cfg(test)]
@@ -88,5 +94,16 @@ mod tests {
     fn test_check_if_string_contains_bracket() {
         let text = RegexHelper::check_if_string_contains_bracket("Sora [123]");
         assert!(text.unwrap());
+    }
+
+    #[test]
+    fn test_replace_newline() {
+        let text = "<br/>This is a sample text with <br> line breaks.<br />";
+        assert_eq!(
+            RegexHelper::replace_br_with_newline(text)
+                .to_owned()
+                .unwrap(),
+            "\nThis is a sample text with \n line breaks.\n"
+        );
     }
 }
