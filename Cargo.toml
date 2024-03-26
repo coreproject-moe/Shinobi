@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 html-escape = "0.2.13"
 regex = {version = "1.10.3", features = ['std','perf']}
-reqwest = "0.11.23"
+reqwest = "0.12.2"
